@@ -54,16 +54,15 @@ double equationPlane(ray R, t_objects *obj,double *distance)
 	t_Plane *pl = ((t_Plane*)obj->content);
 	t_vector oc = subtract(R.A, pl->plane_center);
 	double x = scalar(R.B, pl->plane_norm);
+	// R.D|NORM
 	double y = scalar(oc, pl->plane_norm);
+	// -OC|NORM 
 	double t;
 	if (x != 0)
 	{
-		t = sqrt(-y / x * -y / x);
-		if (*distance > t)
-		{
-			*distance = t;
-			return (t);
-		}
+		// t = -OC|NORM / R.D|NORM
+		t = -y / x;
+		return (t);
 	}
 	return -1;
 }

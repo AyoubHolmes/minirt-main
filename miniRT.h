@@ -227,8 +227,8 @@ double equationPlane(ray R, t_objects *obj,double *distance);
 */
 
 int colorPlane(ray R, t_Plane pl, double t);
-int colorSphere(ray R, t_Sphere sp, double t);
-int	getPixelColor(t_objects *obj, ray r, double *distan);
+int colorSphere(ray R, t_Sphere sp, double t, t_objects *lights);
+int	getPixelColor(t_objects *obj, ray r, double *distance, t_objects *lights);
 /*
 ** -----------------------------------------
 */

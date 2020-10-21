@@ -35,7 +35,6 @@ void		graphicDrawer(t_data d,t_window w)
 	double distance = INT_MAX;
 	int k = 0;
 	j = 0;
-	printf("here\n");
 	while(j < d.R.y)
 	{
 		i = 0;
@@ -44,7 +43,7 @@ void		graphicDrawer(t_data d,t_window w)
 			u = (double)i / (double)d.R.x;
 			v = (double)j / (double)d.R.y;
 			ray r = get_ray(d, u, v);
-			w.img_data[k++] = getPixelColor(d.obj, r, &distance);
+			w.img_data[k++] = getPixelColor(d.obj, r, &distance, d.lights);
 			i++;
 		}
 		j++;
@@ -67,6 +66,8 @@ int			main()
 	w.win_ptr = mlx_new_window(w.mlx_ptr,d.R.x,d.R.y,"miniRT");
 	w.img_ptr = mlx_new_image(w.mlx_ptr,d.R.x,d.R.y);
 	w.img_data = (int *)mlx_get_data_addr(w.img_ptr, &w.bpp, &w.size_l, &w.img_endian);
+	if (d.lights == 0 || d.cameras == 0 || d.obj == 0)
+		return (0);
 	graphicDrawer(d, w);
 	mlx_loop(w.mlx_ptr);
 }

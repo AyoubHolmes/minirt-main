@@ -7,6 +7,7 @@ t_objects *getLigths(t_objects *obj)
 	t_objects	*lst;
 
 	p = obj;
+	lst = NULL;
 	if (!(q = (t_objects*)malloc(sizeof(t_objects))))
 		return (0);
 	while (p != NULL)
@@ -17,32 +18,30 @@ t_objects *getLigths(t_objects *obj)
 			q->id = 3;
 			q->next = NULL;
 			ft_lstadd_back(&lst, q);
-			p = p->next;
-			break;
 		}
-		else
-			p = p->next;
+		p = p->next;
 	}
 	return (lst);
 }
 
-int			inter(ray r, t_objects *p, double *distance, double *t, int color)
+int			inter(ray r, t_objects *p, double *distance, double *t, int color, t_objects *lights)
 {
 	if (p->id == 4)
     {
 		*t = equationSphere(r, p, distance);
 		if (*t > 0)
-			return colorSphere(r, *(t_Sphere*)p->content, *t);
+			return colorSphere(r, *(t_Sphere*)p->content, *t, lights);
     }
 	if (p->id == 5)
     {
 		*t = equationPlane(r, p, distance);
-		return colorPlane(r, *(t_Plane*)p->content, *t);
+		if (*t > 0)
+			return colorPlane(r, *(t_Plane*)p->content, *t);
     }
 	return color;
 }
 
-int			getPixelColor(t_objects *obj, ray r, double *distance)
+int			getPixelColor(t_objects *obj, ray r, double *distance, t_objects *lights)
 {
 	int			color;
     t_objects	*p;
@@ -53,7 +52,7 @@ int			getPixelColor(t_objects *obj, ray r, double *distance)
 	p = obj;
     while (p != NULL)
     {
-        color = inter(r, p, distance, &t, color);
+        color = inter(r, p, distance, &t, color, lights);
 		p = p->next;
     }
 	return (color);
