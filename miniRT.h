@@ -203,8 +203,8 @@ void		pl_insertion(t_data *D, char **data);
 **  ------------- Color Functions ----------
 */
 
-t_vector color_diffuse(t_vector color_sphere, t_vector light_color, t_vector L, t_vector N);
-t_vector color_spec(t_vector light_color, t_vector R, t_vector V);
+t_vector color_diffuse(t_vector color_sphere, t_vector light_color, t_vector L, t_vector N, double brighness);
+t_vector color_spec(t_vector light_color, t_vector R, t_vector V, double brighness);
 int rgb_maker(t_vector rgb);
 t_vector color_clamping(t_vector color);
 

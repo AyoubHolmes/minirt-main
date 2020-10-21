@@ -1,27 +1,27 @@
 #include "miniRT.h"
 
-t_vector color_diffuse(t_vector color_sphere, t_vector light_color, t_vector L, t_vector N)
+t_vector color_diffuse(t_vector color_sphere, t_vector light_color, t_vector L, t_vector N, double brighness)
 {
 	t_vector color;
 	double l;
 
-	l = (l = scalar(L, N))< 0 ? 0 : l; ;
-	color.x = color_sphere.x * light_color.x * l * 1;
-	color.y = color_sphere.y * light_color.y * l * 1;
-	color.z = color_sphere.z * light_color.z * l * 1;
+	l = (l = scalar(L, N))< 0 ? 0 : l;
+	color.x = color_sphere.x * light_color.x * l * brighness;
+	color.y = color_sphere.y * light_color.y * l * brighness;
+	color.z = color_sphere.z * light_color.z * l * brighness;
 	return color;
 }
 
-t_vector color_spec(t_vector light_color, t_vector R, t_vector V)
+t_vector color_spec(t_vector light_color, t_vector R, t_vector V, double brighness)
 {
 	t_vector color;
 	double l;
-	double alpha = 800;
+	double alpha = 1000;
 
 	l = (l = scalar(R, V)) < 0 ? 0 : l;
-	color.x = light_color.x * pow(l, alpha) * 0.8; 
-	color.y = light_color.y * pow(l, alpha) * 0.8; 
-	color.z = light_color.z * pow(l, alpha) * 0.8; 
+	color.x = light_color.x * pow(l, alpha); 
+	color.y = light_color.y * pow(l, alpha); 
+	color.z = light_color.z * pow(l, alpha); 
 	return color;
 }
 
