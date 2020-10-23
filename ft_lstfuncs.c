@@ -18,9 +18,7 @@ void				ft_lstadd_back(t_objects **alst, t_objects *new)
 		if (new)
 		{
 			while (p->next != NULL)
-			{
 				p = p->next;
-			}
 			if (!(p->next = (t_objects*)malloc(sizeof(t_objects))))
 				return ;
 			p->next->id = new->id;

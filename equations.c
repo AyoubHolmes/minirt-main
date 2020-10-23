@@ -1,26 +1,5 @@
 #include "miniRT.h"
 
-/*double equationSphere(ray R, t_vector sphere_center, double rayon)
-{
-	t_vector oc = subtract(R.A, sphere_center);
-	double a = scalar(R.B, R.B);
-	double b = 2.0 * scalar(oc, R.B);
-	double c = scalar(oc, oc) - pow(rayon, 2);
-	double dis = pow(b, 2) - 4 * a * c;
-
-	oc = subtract(R.A, sphere_center);
-	a = scalar(R.B, R.B);
-	printf("dis: %.1f \n", dis);
-	if (dis < 0)
-	{
-		return -1.0;
-	}
-	else
-	{
-		return (-b - sqrt(dis) ) / (2.0*a);
-	}
-}*/
-
 double equationSphere(ray R, t_objects *obj, double *distance)
 {
 	t_Sphere	*sp = ((t_Sphere*)obj->content);
@@ -62,7 +41,11 @@ double equationPlane(ray R, t_objects *obj,double *distance)
 	{
 		// t = -OC|NORM / R.D|NORM
 		t = -y / x;
-		return (t);
+		if (t < *distance)
+		{
+			*distance = t;
+			return (t);
+		}
 	}
 	return -1;
 }

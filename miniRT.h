@@ -9,18 +9,10 @@
 # include "camera.h"
 # define BUFFER_SIZE 100
 
-// is_vector() -> isnumber() ->isdigit()
-// is_double()
-// ft_atoi()
-// ft_atof()
-// color rgb
-// norminette structure's names
-// data initializer
 /*
-**  ------------------- Structures -----------------------
-
-
+**  --------------- Structures ---------------------------
 */
+
 typedef struct	s_window
 {   
     void *mlx_ptr;
@@ -122,13 +114,12 @@ typedef struct			s_data
 	int					pixel;
 }						t_data;
 
-
 /*
-** ----------------------------
+** -------------------------------------------------------
 */
 
 /*
-** --- LINKED LIST FUNCTIONS --
+** ---------------- LINKED LIST FUNCTIONS ----------------
 */
 
 t_objects	*ft_lstnew(void *content);
@@ -141,12 +132,13 @@ t_camlist	*get_cam_next(t_camlist **alst);
 t_camlist	*getCams(t_data d);
 ray			get_ray(t_data d, double u, double v);
 t_objects	*getLigths(t_objects *obj);
+
 /*
 ** -------------------------------------------------------
 */
 
 /*
-** --------------- INITIALIZER FUNCTION ------------------
+** ---------------- INITIALIZER FUNCTION -----------------
 */
 
 t_objects *camInitializer(char **vp, char **cn, char *fov);
@@ -160,7 +152,7 @@ t_Plane *planeInitialize(char **plane_center, char **plane_norm, char **color_pl
 */
 
 /*
-** --------------- DEBUGGING FUNCTION --------------------
+** ---------------- DEBUGGING FUNCTION -------------------
 */
 
 void vectorPrinter (t_vector V);
@@ -177,7 +169,7 @@ void objectsDebugger(t_data d);
 */
 
 /*
-** --------------- PARSING FUNCTION ----------------------
+** ---------------- PARSING FUNCTION ---------------------
 */
 
 void		*ft_memcpy(void *dst, const void *src, size_t n);
@@ -199,8 +191,9 @@ void		pl_insertion(t_data *D, char **data);
 /*
 ** -------------------------------------------------------
 */
+
 /*
-**  ------------- Color Functions ----------
+**  --------------- Color Functions ----------------------
 */
 
 t_vector color_diffuse(t_vector color_sphere, t_vector light_color, t_vector L, t_vector N, double brighness);
@@ -209,29 +202,42 @@ int rgb_maker(t_vector rgb);
 t_vector color_clamping(t_vector color);
 
 /*
-** -----------------------------------------
+** -------------------------------------------------------
 */
 
 /*
-**  ---------- Equations Functions ---------
+**  --------------- Equations Functions ------------------
 */
 
 double equationSphere(ray R, t_objects *obj, double *distance);
 double equationPlane(ray R, t_objects *obj,double *distance);
+
 /*
-** -----------------------------------------
+** -------------------------------------------------------
 */
 
 /*
-**  ---------- Executers Functions ---------
+**  --------------- Hits Functions -----------------------
 */
 
-int colorPlane(ray R, t_Plane pl, double t);
+int sphereHandler(ray r, t_objects *p, double *distance, double *t, t_objects *lights, int c);
+int planeHandler(ray r, t_objects *p, double *distance, double *t, t_objects *lights);
+
+/*
+** -------------------------------------------------------
+*/
+
+/*
+**  --------------- Executers Functions ------------------
+*/
+
+int colorPlane(ray R, t_Plane pl, double t, t_objects *lights);
 int colorSphere(ray R, t_Sphere sp, double t, t_objects *lights);
 int	getPixelColor(t_objects *obj, ray r, double *distance, t_objects *lights);
+
 /*
-** -----------------------------------------
+** -------------------------------------------------------
 */
 
-#endif
 
+#endif

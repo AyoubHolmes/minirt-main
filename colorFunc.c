@@ -9,6 +9,7 @@ t_vector color_diffuse(t_vector color_sphere, t_vector light_color, t_vector L, 
 	color.x = color_sphere.x * light_color.x * l * brighness;
 	color.y = color_sphere.y * light_color.y * l * brighness;
 	color.z = color_sphere.z * light_color.z * l * brighness;
+	
 	return color;
 }
 
@@ -16,12 +17,14 @@ t_vector color_spec(t_vector light_color, t_vector R, t_vector V, double brighne
 {
 	t_vector color;
 	double l;
-	double alpha = 1000;
+	double alpha = 10000;
 
-	l = (l = scalar(R, V)) < 0 ? 0 : l;
+	l = scalar(R, V);
+	l = l< 0 ? 0 : l;
 	color.x = light_color.x * pow(l, alpha); 
-	color.y = light_color.y * pow(l, alpha); 
-	color.z = light_color.z * pow(l, alpha); 
+	color.y = light_color.y * pow(l, alpha);
+	color.z = light_color.z * pow(l, alpha);
+	printf("%f\n", light_color.x);
 	return color;
 }
 

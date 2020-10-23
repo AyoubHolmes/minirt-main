@@ -70,4 +70,5 @@ int			main()
 		return (0);
 	graphicDrawer(d, w);
 	mlx_loop(w.mlx_ptr);
+	return (1);
 }
